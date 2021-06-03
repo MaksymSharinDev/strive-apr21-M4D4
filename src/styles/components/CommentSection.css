@@ -1,5 +1,7 @@
 
-
+.commentSection * {
+    transition: all 300ms ease
+}
 .commentSection button {
     border: none;
     border-radius: 0.25rem;

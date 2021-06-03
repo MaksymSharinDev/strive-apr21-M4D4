@@ -15,10 +15,8 @@ class BookList extends React.Component {
         commentSectionVisible: this.props.books.reduce((acc, elem) => {
             acc[elem.asin] = false
             return acc
-        }, {}  )
+        }, {})
     }
-
-
 
     getVisibleBooksIDs = () => {
         return this.props.books
@@ -28,16 +26,15 @@ class BookList extends React.Component {
                     .includes(this.state.searchQuery))
     }
 
-    showCommentSection = (bID , title ) => {
+    showCommentSection = (bID, title) => {
         let visibly = this.state.commentSectionVisible
         visibly[bID] = !visibly[bID]
-        visibly[bID] ?  this.setState({searchQuery : title.toLowerCase()}) : this.setState({searchQuery : ''})
-        this.setState({ commentSectionVisible : visibly } )
+        //visibly[bID] ? this.setState({searchQuery: title.toLowerCase()}) : this.setState({searchQuery: ''})
+        this.setState({commentSectionVisible: visibly})
     }
 
     render() {
         const SearchBar = () => {
-
         }
         return (
             <Container>
@@ -54,15 +51,15 @@ class BookList extends React.Component {
                         </Form.Group>
                     </Col>
                 </Row>
-                <Row>
+                <Row className={"mb-5"}>
                     {
                         this.getVisibleBooksIDs().map(b =>
-                            (<Col xs={  this.state.commentSectionVisible[b.asin] ? 12 : 3  } >
+                            (<Col xs={this.state.commentSectionVisible[b.asin] ? 12 : 3}>
                                 <div className="d-flex">
-                                    <div onClick={ () => this.showCommentSection(b.asin , b.title) }>
-                                        <SingleBook id={`book${b.asin}`} book={b}  />
+                                    <div onClick={() => this.showCommentSection(b.asin, b.title)}>
+                                        <SingleBook id={`book${b.asin}`} book={b}/>
                                     </div>
-                                    { this.state.commentSectionVisible[b.asin] ? <CommentSection /> : null }
+                                    {this.state.commentSectionVisible[b.asin] ? <CommentSection/> : null}
                                 </div>
                             </Col>))
                     }
